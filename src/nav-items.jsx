@@ -1,4 +1,4 @@
-import { Home, BarChart2, Settings } from "lucide-react";
+import { BarChart2, Users, Briefcase, Settings, Cog } from "lucide-react";
 import Index from "./pages/Index.jsx";
 
 /**
@@ -6,21 +6,33 @@ import Index from "./pages/Index.jsx";
  */
 export const navItems = [
   {
-    title: "Overview",
+    title: "KPI",
     to: "/",
-    icon: <Home className="h-4 w-4" />,
+    icon: <BarChart2 className="h-4 w-4" />,
     page: <Index />,
   },
   {
-    title: "Performance",
-    to: "/performance",
-    icon: <BarChart2 className="h-4 w-4" />,
-    page: <div>Performance Page</div>,
+    title: "Campaigns",
+    to: "/campaigns",
+    icon: <Briefcase className="h-4 w-4" />,
+    page: <div>Campaigns Page</div>,
   },
   {
-    title: "Settings",
-    to: "/settings",
+    title: "User",
+    to: "/user",
+    icon: <Users className="h-4 w-4" />,
+    page: <div>User Page</div>,
+  },
+  {
+    title: "Product",
+    to: "/product",
+    icon: <Cog className="h-4 w-4" />,
+    page: <div>Product Page</div>,
+  },
+  {
+    title: "Product Configuration",
+    to: "/product-configuration",
     icon: <Settings className="h-4 w-4" />,
-    page: <div>Settings Page</div>,
+    page: <div>Product Configuration Page</div>,
   },
 ];

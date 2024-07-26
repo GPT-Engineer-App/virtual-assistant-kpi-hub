@@ -28,6 +28,14 @@ const conversationRateData = [
   { name: '2_weeks', rate: 0.57 },
 ];
 
+const rateComparisonData = [
+  { date: '2024-05-05', outreachRate: 0.3, bookedMeetingRate: 0.1 },
+  { date: '2024-05-12', outreachRate: 0.35, bookedMeetingRate: 0.12 },
+  { date: '2024-05-19', outreachRate: 0.32, bookedMeetingRate: 0.11 },
+  { date: '2024-05-26', outreachRate: 0.38, bookedMeetingRate: 0.15 },
+  { date: '2024-06-02', outreachRate: 0.4, bookedMeetingRate: 0.18 },
+];
+
 const Index = () => {
   const [campaign, setCampaign] = useState("");
   const [adId, setAdId] = useState("");
@@ -148,7 +156,7 @@ const Index = () => {
           </Card>
         </div>
 
-        <Card className="bg-white dark:bg-gray-800">
+        <Card className="bg-white dark:bg-gray-800 mb-6">
           <CardHeader>
             <CardTitle>Conversation Rate of Outreach</CardTitle>
           </CardHeader>
@@ -160,6 +168,24 @@ const Index = () => {
                 <YAxis stroke="#888888" />
                 <Tooltip />
                 <Line type="monotone" dataKey="rate" stroke="#82ca9d" strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-white dark:bg-gray-800">
+          <CardHeader>
+            <CardTitle>Rate Comparisons Over Time</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={rateComparisonData}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="date" stroke="#888888" />
+                <YAxis stroke="#888888" />
+                <Tooltip />
+                <Line type="monotone" dataKey="outreachRate" name="Outreach Rate" stroke="#8884d8" strokeWidth={2} />
+                <Line type="monotone" dataKey="bookedMeetingRate" name="Booked Meeting Rate" stroke="#82ca9d" strokeWidth={2} />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
