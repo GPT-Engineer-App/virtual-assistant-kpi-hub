@@ -1,11 +1,9 @@
 import { useState } from 'react';
 import { UserMenu } from "@/layouts/navbar/_components/UserMenu";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageCircle, CheckCircle, Clock, DollarSign, TrendingUp, Users, Zap } from "lucide-react";
+import { MessageCircle, CheckCircle, TrendingUp, Users, Zap } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tooltip as UITooltip } from "@/components/ui/tooltip";
 
 const metaAdData = [
   { date: '2024-05-05', traffic: 3000 },
@@ -35,21 +33,18 @@ const Index = () => {
   const [adId, setAdId] = useState("");
 
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <header className="bg-white dark:bg-gray-800 border-b p-4 shadow-sm">
+    <div className="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900">
+      <header className="bg-white dark:bg-gray-800 border-b p-4">
         <div className="container mx-auto flex justify-between items-center">
-          <div>
-            <h1 className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">Virtual Assistant Dashboard</h1>
-            <p className="text-gray-600 dark:text-gray-400">Track KPIs and Metrics</p>
-          </div>
+          <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">Virtual Assistant Dashboard</h1>
           <UserMenu />
         </div>
       </header>
 
       <main className="flex-grow container mx-auto p-4 md:p-6 lg:p-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <Select value={campaign} onValueChange={setCampaign}>
-            <SelectTrigger className="bg-white dark:bg-gray-700">
+            <SelectTrigger className="bg-white dark:bg-gray-800">
               <SelectValue placeholder="Select Campaign" />
             </SelectTrigger>
             <SelectContent>
@@ -60,7 +55,7 @@ const Index = () => {
           </Select>
 
           <Select value={adId} onValueChange={setAdId}>
-            <SelectTrigger className="bg-white dark:bg-gray-700">
+            <SelectTrigger className="bg-white dark:bg-gray-800">
               <SelectValue placeholder="Select Ad ID" />
             </SelectTrigger>
             <SelectContent>
@@ -69,79 +64,58 @@ const Index = () => {
               <SelectItem value="ad3">Ad ID 3</SelectItem>
             </SelectContent>
           </Select>
-
-          <UITooltip content="Percentage of conversations that lead to a desired outcome">
-            <Card className="bg-gradient-to-br from-green-400 to-green-600 text-white hover:shadow-lg transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Conversation Rate</CardTitle>
-                <MessageCircle className="h-4 w-4 text-green-100" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">10% / 30%</div>
-                <p className="text-xs text-green-100">Current / Target</p>
-              </CardContent>
-            </Card>
-          </UITooltip>
-
-          <UITooltip content="Number of meetings scheduled through the platform">
-            <Card className="bg-gradient-to-br from-blue-400 to-blue-600 text-white hover:shadow-lg transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Booked Meetings</CardTitle>
-                <CheckCircle className="h-4 w-4 text-blue-100" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">7 / 3</div>
-                <p className="text-xs text-blue-100">This Week / Last Week</p>
-              </CardContent>
-            </Card>
-          </UITooltip>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-          <UITooltip content="Average cost to achieve the primary goal">
-            <Card className="bg-gradient-to-br from-purple-400 to-purple-600 text-white hover:shadow-lg transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Cost per Goal</CardTitle>
-                <TrendingUp className="h-4 w-4 text-purple-100" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">150 AED</div>
-                <p className="text-xs text-purple-100">-5% from last week</p>
-              </CardContent>
-            </Card>
-          </UITooltip>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+          <Card className="bg-white dark:bg-gray-800">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Conversation Rate</CardTitle>
+              <MessageCircle className="h-4 w-4 text-gray-500" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">10% / 30%</div>
+              <p className="text-xs text-gray-500">Current / Target</p>
+            </CardContent>
+          </Card>
 
-          <UITooltip content="Average cost to acquire a new lead">
-            <Card className="bg-gradient-to-br from-yellow-400 to-yellow-600 text-white hover:shadow-lg transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Cost per Lead</CardTitle>
-                <Users className="h-4 w-4 text-yellow-100" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">75 AED</div>
-                <p className="text-xs text-yellow-100">+2% from last week</p>
-              </CardContent>
-            </Card>
-          </UITooltip>
+          <Card className="bg-white dark:bg-gray-800">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Booked Meetings</CardTitle>
+              <CheckCircle className="h-4 w-4 text-gray-500" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">7 / 3</div>
+              <p className="text-xs text-gray-500">This Week / Last Week</p>
+            </CardContent>
+          </Card>
 
-          <UITooltip content="Cost efficiency based on time spent">
-            <Card className="bg-gradient-to-br from-red-400 to-red-600 text-white hover:shadow-lg transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium">Cost per Time</CardTitle>
-                <Zap className="h-4 w-4 text-red-100" />
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">25 AED/hr</div>
-                <p className="text-xs text-red-100">Averaged over 30 days</p>
-              </CardContent>
-            </Card>
-          </UITooltip>
+          <Card className="bg-white dark:bg-gray-800">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Cost per Goal</CardTitle>
+              <TrendingUp className="h-4 w-4 text-gray-500" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">150 AED</div>
+              <p className="text-xs text-gray-500">-5% from last week</p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white dark:bg-gray-800">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Cost per Lead</CardTitle>
+              <Users className="h-4 w-4 text-gray-500" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">75 AED</div>
+              <p className="text-xs text-gray-500">+2% from last week</p>
+            </CardContent>
+          </Card>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          <Card className="bg-white dark:bg-gray-800 hover:shadow-lg transition-all duration-300">
+          <Card className="bg-white dark:bg-gray-800">
             <CardHeader>
-              <CardTitle className="text-indigo-600 dark:text-indigo-400">Meta Ad Traffic</CardTitle>
+              <CardTitle>Meta Ad Traffic</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -156,9 +130,9 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <Card className="bg-white dark:bg-gray-800 hover:shadow-lg transition-all duration-300">
+          <Card className="bg-white dark:bg-gray-800">
             <CardHeader>
-              <CardTitle className="text-indigo-600 dark:text-indigo-400">Rates Comparison</CardTitle>
+              <CardTitle>Rates Comparison</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -174,9 +148,9 @@ const Index = () => {
           </Card>
         </div>
 
-        <Card className="bg-white dark:bg-gray-800 hover:shadow-lg transition-all duration-300">
+        <Card className="bg-white dark:bg-gray-800">
           <CardHeader>
-            <CardTitle className="text-indigo-600 dark:text-indigo-400">Conversation Rate of Outreach</CardTitle>
+            <CardTitle>Conversation Rate of Outreach</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
