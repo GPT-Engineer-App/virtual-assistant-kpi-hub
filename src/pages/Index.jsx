@@ -1,30 +1,40 @@
+import { useState } from 'react';
 import { UserMenu } from "@/layouts/navbar/_components/UserMenu";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageCircle, CheckCircle, Clock } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { MessageCircle, CheckCircle, Clock, DollarSign } from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-const data = [
-  { name: 'Mon', interactions: 400 },
-  { name: 'Tue', interactions: 300 },
-  { name: 'Wed', interactions: 500 },
-  { name: 'Thu', interactions: 280 },
-  { name: 'Fri', interactions: 390 },
-  { name: 'Sat', interactions: 230 },
-  { name: 'Sun', interactions: 350 },
+const metaAdData = [
+  { date: '2024-05-05', traffic: 3000 },
+  { date: '2024-05-12', traffic: 4200 },
+  { date: '2024-05-19', traffic: 5300 },
+  { date: '2024-05-26', traffic: 6500 },
+  { date: '2024-06-02', traffic: 7800 },
 ];
 
-const recentActivity = [
-  { id: 1, action: "User query resolved", timestamp: "2 minutes ago" },
-  { id: 2, action: "New user interaction", timestamp: "10 minutes ago" },
-  { id: 3, action: "Feedback received", timestamp: "1 hour ago" },
-  { id: 4, action: "System update completed", timestamp: "3 hours ago" },
+const ratesData = [
+  { name: 'Meta Add Traffic', value: 100 },
+  { name: 'Outreach rate', value: 80 },
+  { name: 'Response rate', value: 60 },
+  { name: 'Booked a meeting', value: 40 },
+];
+
+const conversationRateData = [
+  { name: 'initial', rate: 0.6 },
+  { name: '1_day', rate: 0.65 },
+  { name: '3_days', rate: 0.63 },
+  { name: '1_week', rate: 0.58 },
+  { name: '2_weeks', rate: 0.57 },
 ];
 
 const Index = () => {
+  const [campaign, setCampaign] = useState("");
+  const [adId, setAdId] = useState("");
+
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Header */}
       <header className="bg-background border-b p-4">
         <div className="container mx-auto flex justify-between items-center">
           <div>
@@ -35,76 +45,137 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="flex-grow container mx-auto p-4 md:p-6 lg:p-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* KPIs Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+          <Select value={campaign} onValueChange={setCampaign}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select Campaign" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="campaign1">Campaign 1</SelectItem>
+              <SelectItem value="campaign2">Campaign 2</SelectItem>
+              <SelectItem value="campaign3">Campaign 3</SelectItem>
+            </SelectContent>
+          </Select>
+
+          <Select value={adId} onValueChange={setAdId}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select Ad ID" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="ad1">Ad ID 1</SelectItem>
+              <SelectItem value="ad2">Ad ID 2</SelectItem>
+              <SelectItem value="ad3">Ad ID 3</SelectItem>
+            </SelectContent>
+          </Select>
+
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Interactions</CardTitle>
+              <CardTitle className="text-sm font-medium">Conversation Rate</CardTitle>
               <MessageCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">2,345</div>
+              <div className="text-2xl font-bold">10% / 30%</div>
             </CardContent>
           </Card>
+
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Successful Resolutions</CardTitle>
+              <CardTitle className="text-sm font-medium">Booked Meetings</CardTitle>
               <CheckCircle className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">89%</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Average Response Time</CardTitle>
-              <Clock className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">1.2s</div>
+              <div className="text-2xl font-bold">7 / 3</div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Metrics Section */}
-        <Card className="mt-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Cost per goal</CardTitle>
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">??? AED</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Cost per lead</CardTitle>
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">??? AED</div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Cost per time</CardTitle>
+              <Clock className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">??? AED</div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Meta Ad Traffic</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <LineChart data={metaAdData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="traffic" stroke="#8884d8" />
+                </LineChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Rates Comparison</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={ratesData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="value" fill="#8884d8" />
+                </BarChart>
+              </ResponsiveContainer>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card>
           <CardHeader>
-            <CardTitle>Daily Interactions</CardTitle>
+            <CardTitle>Conversation rate out outreach</CardTitle>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={data}>
+              <LineChart data={conversationRateData}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Line type="monotone" dataKey="interactions" stroke="#8884d8" />
+                <Line type="monotone" dataKey="rate" stroke="#82ca9d" />
               </LineChart>
             </ResponsiveContainer>
           </CardContent>
         </Card>
-
-        {/* Recent Activity Section */}
-        <Card className="mt-6">
-          <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <ul className="space-y-4">
-              {recentActivity.map((activity) => (
-                <li key={activity.id} className="flex justify-between items-center">
-                  <span>{activity.action}</span>
-                  <span className="text-sm text-muted-foreground">{activity.timestamp}</span>
-                </li>
-              ))}
-            </ul>
-          </CardContent>
-        </Card>
       </main>
 
-      {/* Footer */}
       <footer className="bg-background border-t p-4 text-center text-sm text-muted-foreground">
         © 2023 Virtual Assistant Dashboard. All rights reserved.
       </footer>
